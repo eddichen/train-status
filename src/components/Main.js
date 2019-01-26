@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Loading from "./Loading";
 
 class Main extends Component {
   componentDidMount() {
@@ -6,11 +7,16 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <p>getDepartureData</p>
-      </div>
-    );
+    const error = this.props.error;
+    const isFetching = this.props.isFetching;
+
+    if (isFetching) {
+      return <Loading />;
+    } else if (error) {
+      return <div>Error: {error.message}</div>;
+    } else {
+      return <div>getDepartureData</div>;
+    }
   }
 }
 

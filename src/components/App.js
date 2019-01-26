@@ -4,7 +4,7 @@ import Main from "./Main";
 
 function mapStateToProps(state) {
   return {
-    trainServices: state.getDepartureData.trainServices
+    departureData: state.getDepartureData
   };
 }
 
