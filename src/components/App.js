@@ -1,15 +1,17 @@
 import { connect } from "react-redux";
-import { fetchTrainDataRequest } from "../actions";
+import { fetchTrainDataRequest, fetchStationNameRequest } from "../actions";
 import Main from "./Main";
 
 function mapStateToProps(state) {
   return {
-    departureData: state.getDepartureData
+    departureData: state.getDepartureData,
+    stationNames: state.getStationNames
   };
 }
 
 const bindActionsToDispatch = dispatch => ({
-  fetchTrainDataRequest: () => dispatch(fetchTrainDataRequest())
+  fetchTrainDataRequest: () => dispatch(fetchTrainDataRequest()),
+  fetchStationNameRequest: () => dispatch(fetchStationNameRequest())
 });
 
 const App = connect(
