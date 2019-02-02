@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import Autocomplete from "./Autocomplete";
 
 class Search extends Component {
   render() {
     return (
       <div>
-        <label>Departure:</label>
-        <input type="text" name="departure" />
-        <label>Destination:</label>
-        <input type="text" name="destination" />
+        <Autocomplete stations={this.props.stationNames} inputLabel="From:" />
+        <Autocomplete stations={this.props.stationNames} inputLabel="To:" />
         <button>Go</button>
       </div>
     );

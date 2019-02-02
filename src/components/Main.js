@@ -3,7 +3,7 @@ import Search from "./Search";
 
 class Main extends Component {
   render() {
-    return <Search getStationNames={this.props.getStationNames} />;
+    return <Search stationNames={this.props.stationNames.stationNames} />;
   }
 }
 
