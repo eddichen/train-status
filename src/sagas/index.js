@@ -48,19 +48,6 @@ export function* fetchStations(action) {
   }
 }
 
-export const setDepartureStation = action => ({
-  type: TYPES.SET_DEPARTURE_STATION,
-  stationName: action.stationName,
-  stationCode: action.stationCode
-});
-
-export const setDestinationStation = action => ({
-  type: TYPES.SET_DESTINATION_STATION,
-  stationName: action.stationName,
-  stationCode: action.stationCode
-});
-
 export default function* rootSaga() {
   yield takeLatest(TYPES.FETCH_STATIONS_REQUEST, fetchStations);
-  yield takeLatest(TYPES.SET_DEPARTURE_STATION, setDepartureStation);
 }

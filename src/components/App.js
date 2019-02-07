@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import {
   setDepartureStation,
-  setDestinationStation,
-  fetchStationsRequest
-} from "../sagas";
+  setDestinationStation
+} from "../actions/setStationActions";
+import { fetchStationsRequest } from "../sagas";
 import Main from "./Main";
 
 function mapStateToProps(state) {
