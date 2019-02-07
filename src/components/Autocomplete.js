@@ -7,7 +7,12 @@ class Autocomplete extends Component {
 
     return (
       <Downshift
-        onChange={selection => alert(`You selected ${selection.value}`)}
+        onChange={selection => {
+          this.props.setStation({
+            stationName: selection.stationName,
+            stationCode: selection.crsCode
+          });
+        }}
         itemToString={item => (item ? item.stationName : "")}
       >
         {({

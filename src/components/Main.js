@@ -2,8 +2,20 @@ import React, { Component } from "react";
 import Search from "./Search";
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.fetchStationsRequest();
+  }
+
   render() {
-    return <Search stationNames={this.props.stationNames.stationNames} />;
+    return (
+      <div>
+        <Search
+          stationNames={this.props.stations.stationNames}
+          setDepartureStation={this.props.setDepartureStation}
+          setDestinationStation={this.props.setDestinationStation}
+        />
+      </div>
+    );
   }
 }
 

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import getDepartureData from "./getDepartureData";
 import getStationNames from "./getStationNames";
+import setUserStations from "./setUserStations";
 
 const rootReducer = combineReducers({
-  getDepartureData,
-  getStationNames
+  getStationNames,
+  setUserStations
 });
 
 export default rootReducer;

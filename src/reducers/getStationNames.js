@@ -9,16 +9,16 @@ function getStationNames(
   action
 ) {
   switch (action.type) {
-    case TYPES.FETCH_STATION_NAMES_REQUEST:
+    case TYPES.FETCH_STATIONS_REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       });
-    case TYPES.FETCH_STATION_NAMES_SUCCESS:
+    case TYPES.FETCH_STATIONS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         stationNames: action.stationNames
       });
-    case TYPES.FETCH_STATION_NAMES_ERROR:
+    case TYPES.FETCH_STATIONS_ERROR:
       return Object.assign({}, state, {
         error: action.error
       });
