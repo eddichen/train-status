@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import Autocomplete from "./Autocomplete";
 
 class Search extends Component {
+  handleClick() {
+    //search for trains using the trains stations selected
+    this.props.fetchTrainDataRequest({
+      departureStation: this.props.departureStation,
+      destinationStation: this.props.destinationStation
+    });
+  }
+
   render() {
     return (
       <div>
@@ -15,7 +23,13 @@ class Search extends Component {
           setStation={this.props.setDestinationStation}
           inputLabel="Destination:"
         />
-        <button>Go</button>
+        <button
+          onClick={() => {
+            this.handleClick();
+          }}
+        >
+          Go
+        </button>
       </div>
     );
   }

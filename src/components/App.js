@@ -3,7 +3,7 @@ import {
   setDepartureStation,
   setDestinationStation
 } from "../actions/setStationActions";
-import { fetchStationsRequest } from "../sagas";
+import { fetchStationsRequest, fetchTrainDataRequest } from "../sagas";
 import Main from "./Main";
 
 function mapStateToProps(state) {
@@ -18,7 +18,8 @@ function mapStateToProps(state) {
 const bindActionsToDispatch = dispatch => ({
   fetchStationsRequest: () => dispatch(fetchStationsRequest()),
   setDepartureStation: station => dispatch(setDepartureStation(station)),
-  setDestinationStation: station => dispatch(setDestinationStation(station))
+  setDestinationStation: station => dispatch(setDestinationStation(station)),
+  fetchTrainDataRequest: stations => dispatch(fetchTrainDataRequest(stations))
 });
 
 const App = connect(

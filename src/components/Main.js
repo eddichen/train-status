@@ -13,6 +13,9 @@ class Main extends Component {
           stationNames={this.props.stations.stationNames}
           setDepartureStation={this.props.setDepartureStation}
           setDestinationStation={this.props.setDestinationStation}
+          departureStation={this.props.departureStation}
+          destinationStation={this.props.destinationStation}
+          fetchTrainDataRequest={this.props.fetchTrainDataRequest}
         />
       </div>
     );

@@ -1,18 +1,21 @@
-import { call, put, take, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import * as TYPES from "../types";
 
 const api = url => fetch(url).then(response => response.json());
 const accessToken = "accessToken=a568f8a6-3d7a-4c4e-93fd-6623fa286b1d";
 
-const fetchTrainDataRequest = () => ({
-  type: TYPES.FETCH_TRAIN_DATA_REQUEST
+export const fetchTrainDataRequest = stations => ({
+  type: TYPES.FETCH_TRAIN_DATA_REQUEST,
+  stations
 });
 
-function* fetchTrains(action) {
+export function* fetchTrains(stations) {
   try {
     const trainServices = yield call(
       api,
-      `https://rail-3.apphb.com/departues/SYH/to/VIC?${accessToken}`
+      `https://rail-3.apphb.com/departues/${
+        stations.stations.departureStation.stationCode
+      }/to/${stations.stations.destinationStation.stationCode}?${accessToken}`
     );
 
     yield put({
@@ -28,8 +31,7 @@ export const fetchStationsRequest = () => ({
   type: TYPES.FETCH_STATIONS_REQUEST
 });
 
-export function* fetchStations(action) {
-  console.log("entered");
+function* fetchStations() {
   try {
     const stationNames = yield call(
       api,
@@ -50,4 +52,5 @@ export function* fetchStations(action) {
 
 export default function* rootSaga() {
   yield takeLatest(TYPES.FETCH_STATIONS_REQUEST, fetchStations);
+  yield takeLatest(TYPES.FETCH_TRAIN_DATA_REQUEST, fetchTrains);
 }
