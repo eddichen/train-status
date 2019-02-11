@@ -16,6 +16,7 @@ class Main extends Component {
           departureStation={this.props.departureStation}
           destinationStation={this.props.destinationStation}
           fetchTrainDataRequest={this.props.fetchTrainDataRequest}
+          departureData={this.props.departureData}
         />
       </div>
     );

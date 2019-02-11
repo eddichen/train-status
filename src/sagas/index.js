@@ -11,7 +11,7 @@ export const fetchTrainDataRequest = stations => ({
 
 export function* fetchTrains(stations) {
   try {
-    const trainServices = yield call(
+    const result = yield call(
       api,
       `https://rail-3.apphb.com/departues/${
         stations.stations.departureStation.stationCode
@@ -20,7 +20,7 @@ export function* fetchTrains(stations) {
 
     yield put({
       type: TYPES.FETCH_TRAIN_DATA_SUCCESS,
-      result: trainServices
+      result
     });
   } catch (e) {
     console.log(e);

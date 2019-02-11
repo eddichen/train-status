@@ -3,7 +3,7 @@ import * as TYPES from "../types";
 function getDepartureData(
   state = {
     isFetching: false,
-    trainServices: [],
+    trains: [],
     error: {}
   },
   action
@@ -16,7 +16,7 @@ function getDepartureData(
     case TYPES.FETCH_TRAIN_DATA_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        trainServices: action.result.trainServices,
+        trains: action.result,
         error: action.error
       });
     default:

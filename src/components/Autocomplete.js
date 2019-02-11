@@ -24,7 +24,7 @@ class Autocomplete extends Component {
         }) => (
           <div>
             <label {...getLabelProps()}>{this.props.inputLabel}</label>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} required />
             {isOpen ? (
               <div>
                 {items
