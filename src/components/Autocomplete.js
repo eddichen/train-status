@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import Downshift from "downshift";
+import styled from "styled-components";
+
+const AutocompleteLabel = styled.label``;
+
+const AutocompleteInput = styled.input``;
 
 class Autocomplete extends Component {
   render() {
@@ -22,9 +27,14 @@ class Autocomplete extends Component {
           isOpen,
           inputValue
         }) => (
-          <div>
-            <label {...getLabelProps()}>{this.props.inputLabel}</label>
-            <input {...getInputProps()} />
+          <div className="form__field">
+            <AutocompleteLabel {...getLabelProps()} className="visuallyhidden">
+              {this.props.inputLabel}
+            </AutocompleteLabel>
+            <AutocompleteInput
+              {...getInputProps()}
+              placeholder={this.props.inputLabel}
+            />
             {isOpen ? (
               <div>
                 {items
