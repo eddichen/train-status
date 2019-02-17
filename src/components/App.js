@@ -22,9 +22,7 @@ const bindActionsToDispatch = dispatch => ({
   fetchTrainDataRequest: stations => dispatch(fetchTrainDataRequest(stations))
 });
 
-const App = connect(
+export default connect(
   mapStateToProps,
   bindActionsToDispatch
 )(Main);
-
-export default App;

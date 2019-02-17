@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Autocomplete from "./Autocomplete";
-import SearchResults from "./SearchResults";
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  background-color: #f1f2f6;
+  padding: 0 15px;
+  height: 100%;
+`;
 
 const SearchTitle = styled.h1`
   font-size: 21px;
@@ -28,13 +31,14 @@ const Button = styled.button`
 `;
 
 class Search extends Component {
+  componentDidMount() {
+    this.props.fetchStationsRequest();
+  }
+
   //search for trains using the trains stations selected
   searchTrains = event => {
     event.preventDefault();
-    this.props.fetchTrainDataRequest({
-      departureStation: this.props.departureStation,
-      destinationStation: this.props.destinationStation
-    });
+    this.props.history.push("/search");
   };
 
   render() {
@@ -44,24 +48,21 @@ class Search extends Component {
         <SearchForm>
           <form action="" onSubmit={this.searchTrains}>
             <Autocomplete
-              stations={this.props.stationNames}
+              stations={this.props.stations.stationNames}
               setStation={this.props.setDepartureStation}
               inputLabel="From"
             />
             <Autocomplete
-              stations={this.props.stationNames}
+              stations={this.props.stations.stationNames}
               setStation={this.props.setDestinationStation}
               inputLabel="To"
             />
             <Button>Search Trains</Button>
           </form>
         </SearchForm>
-        {this.props.departureData.trains.trainServices === null ? (
+        {/* {this.props.departureData.trains.trainServices === null ? (
           <p>There are no direct services between these stations</p>
-        ) : null}
-        {this.props.departureData.trains.length !== 0 ? (
-          <SearchResults departureData={this.props.departureData} />
-        ) : null}
+        ) : null} */}
       </SearchContainer>
     );
   }
