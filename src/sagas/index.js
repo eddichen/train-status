@@ -25,7 +25,7 @@ export function* fetchTrains(stations) {
       api,
       `https://rail-3.apphb.com/departures/${
         stations.stations.departureStation.stationCode
-      }${departureFilter}?${accessToken}`
+      }${departureFilter}?expand=true&${accessToken}`
     );
 
     yield put({
