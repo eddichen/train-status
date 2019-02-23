@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Autocomplete from "./Autocomplete";
+import Loading from "./Loading";
 
-const SearchContainer = styled.div`
-  background-color: #f1f2f6;
-  padding: 0 15px;
-  height: 100%;
-`;
+const SearchContainer = styled.div``;
 
 const SearchTitle = styled.h1`
   font-size: 21px;
@@ -42,29 +39,41 @@ class Search extends Component {
   };
 
   render() {
-    return (
-      <SearchContainer>
-        <SearchTitle>Find your next train</SearchTitle>
-        <SearchForm>
-          <form action="" onSubmit={this.searchTrains}>
-            <Autocomplete
-              stations={this.props.stations.stationNames}
-              setStation={this.props.setDepartureStation}
-              inputLabel="From"
-            />
-            <Autocomplete
-              stations={this.props.stations.stationNames}
-              setStation={this.props.setDestinationStation}
-              inputLabel="To"
-            />
-            <Button>Search Trains</Button>
-          </form>
-        </SearchForm>
-        {/* {this.props.departureData.trains.trainServices === null ? (
-          <p>There are no direct services between these stations</p>
-        ) : null} */}
-      </SearchContainer>
-    );
+    const error = this.props.stations.error;
+    const isFetching = this.props.stations.isFetching;
+
+    if (isFetching) {
+      return <Loading />;
+    } else if (
+      Object.entries(error).length !== 0 &&
+      error.constructor === Object
+    ) {
+      return <div>Error: {error.message}</div>;
+    } else {
+      return (
+        <SearchContainer>
+          <SearchTitle>Find your next train</SearchTitle>
+          <SearchForm>
+            <form action="" onSubmit={this.searchTrains}>
+              <Autocomplete
+                stations={this.props.stations.stationNames}
+                setStation={this.props.setDepartureStation}
+                inputLabel="From"
+              />
+              <Autocomplete
+                stations={this.props.stations.stationNames}
+                setStation={this.props.setDestinationStation}
+                inputLabel="To"
+              />
+              <Button>Search Trains</Button>
+            </form>
+          </SearchForm>
+          {/* {this.props.departureData.trains.trainServices === null ? (
+            <p>There are no direct services between these stations</p>
+          ) : null} */}
+        </SearchContainer>
+      );
+    }
   }
 }
 

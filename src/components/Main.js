@@ -24,6 +24,12 @@ const GlobalStyle = createGlobalStyle`
     color: #132968;
   }
 
+  .main {
+    background-color: #f1f2f6;
+    padding: 0 15px;
+    height: 100%;
+  }
+
   label,
   input {
     font-size: 1em;

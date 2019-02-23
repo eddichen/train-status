@@ -32,8 +32,11 @@ export function* fetchTrains(stations) {
       type: TYPES.FETCH_TRAIN_DATA_SUCCESS,
       result
     });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    yield put({
+      type: TYPES.FETCH_TRAIN_DATA_ERROR,
+      error
+    });
   }
 }
 

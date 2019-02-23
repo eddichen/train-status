@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Loading from "./Loading";
 
-const MainContainer = styled.div`
-  background-color: #f1f2f6;
-  padding: 0 15px;
-  height: 100%;
-`;
+const SearchResultsContainer = styled.div``;
 
 class SearchResults extends Component {
   componentDidMount() {
@@ -31,35 +28,48 @@ class SearchResults extends Component {
   }
 
   render() {
-    return (
-      <MainContainer>
-        <h1>search results</h1>
-        {this.props.departureData.trains.trainServices !== undefined ? (
-          <div>
-            {this.props.departureData.trains.trainServices.map(
-              (service, index) => (
-                <div key={index}>
-                  <div>
-                    <p>{service.std}</p>
-                    <p>{service.origin[0].locationName}</p>
-                    <p>{service.etd}</p>
+    const error = this.props.departureData.error;
+    const isFetching = this.props.departureData.isFetching;
+
+    if (isFetching) {
+      return <Loading />;
+    } else if (
+      Object.entries(error).length !== 0 &&
+      error.constructor === Object
+    ) {
+      return <div>Error: {error.message}</div>;
+    } else {
+      return (
+        <SearchResultsContainer>
+          <h1>search results</h1>
+          <Link to="/">Back</Link>
+          {this.props.departureData.trains.trainServices !== undefined ? (
+            <div>
+              {this.props.departureData.trains.trainServices.map(
+                (service, index) => (
+                  <div key={index}>
+                    <div>
+                      <p>{service.std}</p>
+                      <p>{service.origin[0].locationName}</p>
+                      <p>{service.etd}</p>
+                    </div>
+                    {this.arrivalTime(
+                      service.subsequentCallingPoints[0].callingPoint,
+                      this.props.destinationStation.stationName
+                    )}
+                    <p>{service.destination[0].locationName}</p>
                   </div>
-                  {this.arrivalTime(
-                    service.subsequentCallingPoints[0].callingPoint,
-                    this.props.destinationStation.stationName
-                  )}
-                  <p>{service.destination[0].locationName}</p>
-                </div>
-              )
-            )}
-          </div>
-        ) : (
-          <p>
-            No trains found, please <Link to="/">try another search</Link>
-          </p>
-        )}
-      </MainContainer>
-    );
+                )
+              )}
+            </div>
+          ) : (
+            <p>
+              No trains found, please <Link to="/">try another search</Link>
+            </p>
+          )}
+        </SearchResultsContainer>
+      );
+    }
   }
 }
 
