@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Autocomplete from "./Autocomplete";
 import Loading from "./Loading";
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  height: 100%;
+`;
 
 const SearchTitle = styled.h1`
   font-size: 21px;

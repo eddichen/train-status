@@ -11,10 +11,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html,
-  body,
-  #root,
-  .router,
-  .main {
+  body {
     height: 100%;
   }
 
@@ -22,12 +19,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: Helvetica, Arial, sans-serif;
     margin: 0;
     color: #132968;
+    background-color: #f1f2f6;
   }
 
   .main {
-    background-color: #f1f2f6;
     padding: 0 15px;
-    height: 100%;
   }
 
   label,

@@ -5,6 +5,14 @@ import Loading from "./Loading";
 
 const SearchResultsContainer = styled.div``;
 
+const ResultsCard = styled.div`
+  display: flex;
+`;
+
+const ResultsCardItem = styled.div`
+  flex: 1 1 33.333%;
+`;
+
 class SearchResults extends Component {
   componentDidMount() {
     this.props.fetchTrainDataRequest({
@@ -17,11 +25,10 @@ class SearchResults extends Component {
     for (let key in stops) {
       if (stops[key].locationName === destination) {
         return (
-          <div>
+          <ResultsCardItem>
             <p>{stops[key].st}</p>
-            <p>{stops[key].locationName}</p>
             <p>{stops[key].et}</p>
-          </div>
+          </ResultsCardItem>
         );
       }
     }
@@ -41,24 +48,25 @@ class SearchResults extends Component {
     } else {
       return (
         <SearchResultsContainer>
-          <h1>search results</h1>
           <Link to="/">Back</Link>
           {this.props.departureData.trains.trainServices !== undefined ? (
             <div>
+              <h1>
+                {this.props.departureStation.stationName} &rarr;{" "}
+                {this.props.destinationStation.stationName}
+              </h1>
               {this.props.departureData.trains.trainServices.map(
                 (service, index) => (
-                  <div key={index}>
-                    <div>
+                  <ResultsCard key={index}>
+                    <ResultsCardItem>
                       <p>{service.std}</p>
-                      <p>{service.origin[0].locationName}</p>
                       <p>{service.etd}</p>
-                    </div>
+                    </ResultsCardItem>
                     {this.arrivalTime(
                       service.subsequentCallingPoints[0].callingPoint,
                       this.props.destinationStation.stationName
                     )}
-                    <p>{service.destination[0].locationName}</p>
-                  </div>
+                  </ResultsCard>
                 )
               )}
             </div>
