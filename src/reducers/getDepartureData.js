@@ -10,18 +10,11 @@ function getDepartureData(
 ) {
   switch (action.type) {
     case TYPES.FETCH_TRAIN_DATA_REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
+      return { ...state, isFetching: true };
     case TYPES.FETCH_TRAIN_DATA_SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        trains: action.result
-      });
+      return { ...state, isFetching: false, trains: action.result };
     case TYPES.FETCH_TRAIN_DATA_ERROR:
-      return Object.assign({}, state, {
-        error: action.error
-      });
+      return { ...state, error: action.error };
     default:
       return state;
   }
