@@ -63,7 +63,7 @@ class Main extends Component {
             render={props => <Search {...props} {...this.props} />}
           />
           <Route
-            path="/search"
+            path="/trains"
             render={props => <SearchResults {...props} {...this.props} />}
           />
           <Route path="" component={NotFoundPage} />

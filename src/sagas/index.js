@@ -10,21 +10,19 @@ export const fetchTrainDataRequest = stations => ({
 });
 
 export function* fetchTrains(stations) {
+  console.log("stations", stations);
   const destinationStation = stations.stations.destinationStation;
   let departureFilter = "";
 
-  if (
-    Object.keys(destinationStation).length !== 0 &&
-    destinationStation.constructor === Object
-  ) {
-    departureFilter = `/to/${stations.stations.destinationStation.stationCode}`;
+  if (destinationStation.length) {
+    departureFilter = `/to/${stations.stations.destinationStation}`;
   }
 
   try {
     const result = yield call(
       api,
       `https://rail-3.apphb.com/departures/${
-        stations.stations.departureStation.stationCode
+        stations.stations.departureStation
       }${departureFilter}?expand=true&${accessToken}`
     );
 

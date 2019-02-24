@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Autocomplete from "./Autocomplete";
 import Loading from "./Loading";
@@ -37,7 +38,11 @@ class Search extends Component {
   //search for trains using the trains stations selected
   searchTrains = event => {
     event.preventDefault();
-    this.props.history.push("/search");
+
+    const fromStation = this.props.departureStation.stationCode;
+    const toStation = this.props.destinationStation.stationCode;
+
+    this.props.history.push(`/search/${fromStation}/to/${toStation}`);
   };
 
   render() {
@@ -67,7 +72,18 @@ class Search extends Component {
                 setStation={this.props.setDestinationStation}
                 inputLabel="To"
               />
-              <Button>Search Trains</Button>
+              <Link
+                to={{
+                  pathname: "/trains",
+                  search:
+                    "?from=" +
+                    this.props.departureStation.stationCode +
+                    "&to=" +
+                    this.props.destinationStation.stationCode
+                }}
+              >
+                Search Trains
+              </Link>
             </form>
           </SearchForm>
           {/* {this.props.departureData.trains.trainServices === null ? (

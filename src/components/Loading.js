@@ -14,7 +14,6 @@ const LoadingContainer = styled.div`
   }
 
   .loading__text {
-    font-family: "Courier New", Courier, monospace;
     font-size: 18px;
   }
 `;

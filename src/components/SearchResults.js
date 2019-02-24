@@ -14,16 +14,29 @@ const ResultsCardItem = styled.div`
 `;
 
 class SearchResults extends Component {
+  constructor(props) {
+    super(props);
+
+    this.stationsArray = this.props.location.search.match(/[A-Z]{3}/g);
+
+    this.stations = {
+      departure: this.stationsArray[0],
+      destination: this.stationsArray[1]
+    };
+  }
+
   componentDidMount() {
     this.props.fetchTrainDataRequest({
-      departureStation: this.props.departureStation,
-      destinationStation: this.props.destinationStation
+      departureStation: this.stations.departure,
+      destinationStation: this.stations.destination
     });
   }
 
   arrivalTime(stops, destination) {
+    console.log("stops", stops);
+    console.log("destination", destination);
     for (let key in stops) {
-      if (stops[key].locationName === destination) {
+      if (stops[key].crs === destination) {
         return (
           <ResultsCardItem>
             <p>{stops[key].st}</p>
@@ -49,12 +62,13 @@ class SearchResults extends Component {
       return (
         <SearchResultsContainer>
           <Link to="/">Back</Link>
-          {this.props.departureData.trains.trainServices !== undefined ? (
+          <h1>
+            {this.props.departureData.trains.locationName} &rarr;{" "}
+            {this.props.destinationStation.stationName}
+          </h1>
+          {this.props.departureData.trains.trainServices !== undefined &&
+          this.props.departureData.trains.trainServices !== null ? (
             <div>
-              <h1>
-                {this.props.departureStation.stationName} &rarr;{" "}
-                {this.props.destinationStation.stationName}
-              </h1>
               {this.props.departureData.trains.trainServices.map(
                 (service, index) => (
                   <ResultsCard key={index}>
@@ -64,7 +78,7 @@ class SearchResults extends Component {
                     </ResultsCardItem>
                     {this.arrivalTime(
                       service.subsequentCallingPoints[0].callingPoint,
-                      this.props.destinationStation.stationName
+                      this.stations.destination
                     )}
                   </ResultsCard>
                 )
