@@ -64,7 +64,7 @@ class SearchResults extends Component {
           <Link to="/">Back</Link>
           <h1>
             {this.props.departureData.trains.locationName} &rarr;{" "}
-            {this.props.destinationStation.stationName}
+            {this.props.departureData.trains.filterLocationName}
           </h1>
           {this.props.departureData.trains.trainServices !== undefined &&
           this.props.departureData.trains.trainServices !== null ? (
