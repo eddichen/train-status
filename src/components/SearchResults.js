@@ -11,6 +11,9 @@ const SearchResultsTitle = styled.div`
 
 const ResultsCard = styled.div`
   display: flex;
+  background-color: white;
+  margin-bottom: 6px;
+  border-top: 3px solid #a1a9c3;
 `;
 
 const ResultsCardTimes = styled.div`
@@ -20,6 +23,7 @@ const ResultsCardTimes = styled.div`
 
 const Service = styled.div`
   flex: 1 1 50%;
+  text-align: center;
 `;
 
 const ServiceTime = styled.span`
@@ -27,14 +31,22 @@ const ServiceTime = styled.span`
   font-weight: bold;
 `;
 
+const ServiceDivider = styled.span`
+  display: flex;
+  text-align: center;
+  flex: 1 1 5%;
+  align-items: center;
+`;
+
 const ServiceStatus = styled.span`
   font-size: 14px;
 `;
 
 const ResultCardAdditional = styled.div`
-  flex: 1 1 60%;
+  flex: 1 1 55%;
   text-align: right;
   font-size: 14px;
+  padding-right: 10px;
 `;
 
 class SearchResults extends Component {
@@ -117,7 +129,7 @@ class SearchResults extends Component {
                           <ServiceStatus>{service.etd}</ServiceStatus>
                         </p>
                       </Service>
-
+                      <ServiceDivider>&rarr;</ServiceDivider>
                       {this.arrivalTime(
                         service.subsequentCallingPoints[0].callingPoint,
                         this.stations.destination
@@ -129,7 +141,7 @@ class SearchResults extends Component {
                           ? `Platform ${service.platform}`
                           : null}
                         <br />
-                        Train to {service.destination[0].locationName}
+                        {service.destination[0].locationName}
                       </p>
                     </ResultCardAdditional>
                   </ResultsCard>
