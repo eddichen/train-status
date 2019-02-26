@@ -10,7 +10,6 @@ export const fetchTrainDataRequest = stations => ({
 });
 
 export function* fetchTrains(stations) {
-  console.log("stations", stations);
   const destinationStation = stations.stations.destinationStation;
   let departureFilter = "";
 

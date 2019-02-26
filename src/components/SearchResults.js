@@ -5,12 +5,36 @@ import Loading from "./Loading";
 
 const SearchResultsContainer = styled.div``;
 
+const SearchResultsTitle = styled.div`
+  font-size: 18px;
+`;
+
 const ResultsCard = styled.div`
   display: flex;
 `;
 
-const ResultsCardItem = styled.div`
-  flex: 1 1 33.333%;
+const ResultsCardTimes = styled.div`
+  display: flex;
+  flex: 1 1 40%;
+`;
+
+const Service = styled.div`
+  flex: 1 1 50%;
+`;
+
+const ServiceTime = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const ServiceStatus = styled.span`
+  font-size: 14px;
+`;
+
+const ResultCardAdditional = styled.div`
+  flex: 1 1 60%;
+  text-align: right;
+  font-size: 14px;
 `;
 
 class SearchResults extends Component {
@@ -33,15 +57,16 @@ class SearchResults extends Component {
   }
 
   arrivalTime(stops, destination) {
-    console.log("stops", stops);
-    console.log("destination", destination);
     for (let key in stops) {
       if (stops[key].crs === destination) {
         return (
-          <ResultsCardItem>
-            <p>{stops[key].st}</p>
-            <p>{stops[key].et}</p>
-          </ResultsCardItem>
+          <Service>
+            <p>
+              <ServiceTime>{stops[key].st}</ServiceTime>
+              <br />
+              <ServiceStatus>{stops[key].et}</ServiceStatus>
+            </p>
+          </Service>
         );
       }
     }
@@ -62,24 +87,51 @@ class SearchResults extends Component {
       return (
         <SearchResultsContainer>
           <Link to="/">Back</Link>
-          <h1>
+          <SearchResultsTitle>
             {this.props.departureData.trains.locationName} &rarr;{" "}
             {this.props.departureData.trains.filterLocationName}
-          </h1>
+          </SearchResultsTitle>
+
           {this.props.departureData.trains.trainServices !== undefined &&
           this.props.departureData.trains.trainServices !== null ? (
             <div>
+              {this.props.departureData.trains.nrccMessages !== null
+                ? this.props.departureData.trains.nrccMessages.map(
+                    (message, index) => (
+                      <p
+                        key={index}
+                        dangerouslySetInnerHTML={{ __html: message.value }}
+                      />
+                    )
+                  )
+                : null}
+
               {this.props.departureData.trains.trainServices.map(
                 (service, index) => (
                   <ResultsCard key={index}>
-                    <ResultsCardItem>
-                      <p>{service.std}</p>
-                      <p>{service.etd}</p>
-                    </ResultsCardItem>
-                    {this.arrivalTime(
-                      service.subsequentCallingPoints[0].callingPoint,
-                      this.stations.destination
-                    )}
+                    <ResultsCardTimes>
+                      <Service>
+                        <p>
+                          <ServiceTime>{service.std}</ServiceTime>
+                          <br />
+                          <ServiceStatus>{service.etd}</ServiceStatus>
+                        </p>
+                      </Service>
+
+                      {this.arrivalTime(
+                        service.subsequentCallingPoints[0].callingPoint,
+                        this.stations.destination
+                      )}
+                    </ResultsCardTimes>
+                    <ResultCardAdditional>
+                      <p>
+                        {service.platform !== null
+                          ? `Platform ${service.platform}`
+                          : null}
+                        <br />
+                        Train to {service.destination[0].locationName}
+                      </p>
+                    </ResultCardAdditional>
                   </ResultsCard>
                 )
               )}
