@@ -20,7 +20,8 @@ const SearchForm = styled.div`
   padding: 15px;
 `;
 
-const Button = styled.button`
+const StyledLink = styled(Link)`
+  display: block;
   color: #fff;
   font-size: 1em;
   background-color: #fa6b6b;
@@ -28,6 +29,8 @@ const Button = styled.button`
   border-radius: 4px;
   padding: 16px;
   width: 100%;
+  text-decoration: none;
+  text-align: center;
 `;
 
 class Search extends Component {
@@ -72,7 +75,7 @@ class Search extends Component {
                 setStation={this.props.setDestinationStation}
                 inputLabel="To"
               />
-              <Link
+              <StyledLink
                 to={{
                   pathname: "/trains",
                   search:
@@ -83,7 +86,7 @@ class Search extends Component {
                 }}
               >
                 Search Trains
-              </Link>
+              </StyledLink>
             </form>
           </SearchForm>
           {/* {this.props.departureData.trains.trainServices === null ? (

@@ -5,7 +5,7 @@ import Loading from "./Loading";
 
 const SearchResultsContainer = styled.div``;
 
-const SearchResultsTitle = styled.div`
+const SearchResultsTitle = styled.h1`
   font-size: 18px;
 `;
 
