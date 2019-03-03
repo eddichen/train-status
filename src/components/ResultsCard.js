@@ -32,6 +32,16 @@ const ServiceDivider = styled.span`
 
 const ServiceStatus = styled.span`
   font-size: 14px;
+  color: ${props => {
+    if (props.delayed) {
+      return "red";
+    }
+    if (props.late) {
+      return "#fa6b6b";
+    } else {
+      return "#132968";
+    }
+  }};
 `;
 
 const ResultCardAdditional = styled.div`
@@ -69,10 +79,22 @@ class ResultsCard extends Component {
           <Service>
             <ServiceTime>{stops[key].st}</ServiceTime>
             <br />
-            <ServiceStatus>{stops[key].et}</ServiceStatus>
+            {this.estimatedTime(stops[key].et)}
           </Service>
         );
       }
+    }
+  }
+
+  estimatedTime(estTime) {
+    switch (estTime) {
+      case "On time":
+        return <ServiceStatus>{estTime}</ServiceStatus>;
+      case "Delayed":
+      case "Cancelled":
+        return <ServiceStatus delayed>{estTime}</ServiceStatus>;
+      default:
+        return <ServiceStatus late>{estTime}</ServiceStatus>;
     }
   }
 
@@ -89,7 +111,7 @@ class ResultsCard extends Component {
           <Service>
             <ServiceTime>{this.props.service.std}</ServiceTime>
             <br />
-            <ServiceStatus>{this.props.service.etd}</ServiceStatus>
+            {this.estimatedTime(this.props.service.etd)}
           </Service>
           <ServiceDivider>&rarr;</ServiceDivider>
           {this.arrivalTime(

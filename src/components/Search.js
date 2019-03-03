@@ -46,6 +46,19 @@ class Search extends Component {
     });
   }
 
+  constructUrlParams(fromStation, toStation) {
+    let searchParams = "";
+
+    if (fromStation) {
+      searchParams = "?from=" + fromStation;
+
+      if (toStation) {
+        return (searchParams += "&to=" + toStation);
+      }
+    }
+    return searchParams;
+  }
+
   render() {
     const error = this.props.stations.error;
     const isFetching = this.props.stations.isFetching;
@@ -76,11 +89,10 @@ class Search extends Component {
               <StyledLink
                 to={{
                   pathname: "/trains",
-                  search:
-                    "?from=" +
-                    this.props.departureStation.stationCode +
-                    "&to=" +
+                  search: this.constructUrlParams(
+                    this.props.departureStation.stationCode,
                     this.props.destinationStation.stationCode
+                  )
                 }}
               >
                 Search Trains
