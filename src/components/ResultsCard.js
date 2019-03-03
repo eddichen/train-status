@@ -6,17 +6,18 @@ const StyledResultsCard = styled.div`
   flex-wrap: wrap;
   background-color: white;
   margin-bottom: 6px;
+  padding: 5px;
   border-top: 3px solid #a1a9c3;
 `;
 
 const ResultsCardTimes = styled.div`
   display: flex;
-  flex: 1 1 40%;
+  flex: 1 1 50%;
 `;
 
 const Service = styled.div`
-  flex: 1 1 50%;
-  text-align: center;
+  float: left;
+  min-width: 65px;
 `;
 
 const ServiceTime = styled.span`
@@ -25,10 +26,8 @@ const ServiceTime = styled.span`
 `;
 
 const ServiceDivider = styled.span`
-  display: flex;
-  text-align: center;
-  flex: 1 1 5%;
-  align-items: center;
+  float: left;
+  padding: 0 10px 0 0;
 `;
 
 const ServiceStatus = styled.span`
@@ -36,7 +35,7 @@ const ServiceStatus = styled.span`
 `;
 
 const ResultCardAdditional = styled.div`
-  flex: 1 1 55%;
+  flex: 1 1 50%;
   text-align: right;
   font-size: 14px;
   padding-right: 10px;
@@ -44,9 +43,15 @@ const ResultCardAdditional = styled.div`
 
 const ResultCardInfoLink = styled.div`
   flex: 0 0 100%;
+
+  button {
+    padding: 0;
+  }
 `;
 
-const ResultCardInfo = styled.div``;
+const ResultCardInfo = styled.div`
+  font-size: 14px;
+`;
 
 class ResultsCard extends Component {
   constructor() {
@@ -62,11 +67,9 @@ class ResultsCard extends Component {
       if (stops[key].crs === destination) {
         return (
           <Service>
-            <p>
-              <ServiceTime>{stops[key].st}</ServiceTime>
-              <br />
-              <ServiceStatus>{stops[key].et}</ServiceStatus>
-            </p>
+            <ServiceTime>{stops[key].st}</ServiceTime>
+            <br />
+            <ServiceStatus>{stops[key].et}</ServiceStatus>
           </Service>
         );
       }
@@ -84,11 +87,9 @@ class ResultsCard extends Component {
       <StyledResultsCard>
         <ResultsCardTimes>
           <Service>
-            <p>
-              <ServiceTime>{this.props.service.std}</ServiceTime>
-              <br />
-              <ServiceStatus>{this.props.service.etd}</ServiceStatus>
-            </p>
+            <ServiceTime>{this.props.service.std}</ServiceTime>
+            <br />
+            <ServiceStatus>{this.props.service.etd}</ServiceStatus>
           </Service>
           <ServiceDivider>&rarr;</ServiceDivider>
           {this.arrivalTime(
@@ -97,13 +98,11 @@ class ResultsCard extends Component {
           )}
         </ResultsCardTimes>
         <ResultCardAdditional>
-          <p>
-            {this.props.service.platform !== null
-              ? `Platform ${this.props.service.platform}`
-              : null}
-            <br />
-            {this.props.service.destination[0].locationName}
-          </p>
+          {this.props.service.platform !== null
+            ? `Platform ${this.props.service.platform}`
+            : null}
+          <br />
+          {this.props.service.destination[0].locationName}
         </ResultCardAdditional>
         <ResultCardInfoLink>
           <button type="button" onClick={this.toggleInfo.bind(this)}>

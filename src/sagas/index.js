@@ -13,7 +13,7 @@ export function* fetchTrains(stations) {
   const destinationStation = stations.stations.destinationStation;
   let departureFilter = "";
 
-  if (destinationStation.length) {
+  if (destinationStation !== undefined) {
     departureFilter = `/to/${stations.stations.destinationStation}`;
   }
 

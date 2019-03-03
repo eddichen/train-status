@@ -38,16 +38,6 @@ class Search extends Component {
     this.props.fetchStationsRequest();
   }
 
-  //search for trains using the trains stations selected
-  searchTrains = event => {
-    event.preventDefault();
-
-    const fromStation = this.props.departureStation.stationCode;
-    const toStation = this.props.destinationStation.stationCode;
-
-    this.props.history.push(`/search/${fromStation}/to/${toStation}`);
-  };
-
   render() {
     const error = this.props.stations.error;
     const isFetching = this.props.stations.isFetching;
@@ -64,7 +54,7 @@ class Search extends Component {
         <SearchContainer>
           <SearchTitle>Find your next train</SearchTitle>
           <SearchForm>
-            <form action="" onSubmit={this.searchTrains}>
+            <form action="">
               <Autocomplete
                 stations={this.props.stations.stationNames}
                 setStation={this.props.setDepartureStation}
@@ -89,9 +79,6 @@ class Search extends Component {
               </StyledLink>
             </form>
           </SearchForm>
-          {/* {this.props.departureData.trains.trainServices === null ? (
-            <p>There are no direct services between these stations</p>
-          ) : null} */}
         </SearchContainer>
       );
     }
