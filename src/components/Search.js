@@ -36,6 +36,14 @@ const StyledLink = styled(Link)`
 class Search extends Component {
   componentDidMount() {
     this.props.fetchStationsRequest();
+    this.props.setDepartureStation({
+      stationName: undefined,
+      stationCode: undefined
+    });
+    this.props.setDestinationStation({
+      stationName: undefined,
+      stationCode: undefined
+    });
   }
 
   render() {

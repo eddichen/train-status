@@ -16,17 +16,21 @@ class SearchResults extends Component {
 
     this.stationsArray = this.props.location.search.match(/[A-Z]{3}/g);
 
-    this.stations = {
-      departure: this.stationsArray[0],
-      destination: this.stationsArray[1]
-    };
+    if (this.stationsArray) {
+      this.stations = {
+        departure: this.stationsArray[0],
+        destination: this.stationsArray[1]
+      };
+    }
   }
 
   componentDidMount() {
-    this.props.fetchTrainDataRequest({
-      departureStation: this.stations.departure,
-      destinationStation: this.stations.destination
-    });
+    if (this.stations) {
+      this.props.fetchTrainDataRequest({
+        departureStation: this.stations.departure,
+        destinationStation: this.stations.destination
+      });
+    }
   }
 
   render() {
@@ -40,7 +44,10 @@ class SearchResults extends Component {
       error.constructor === Object
     ) {
       return <div>Error: {error.message}</div>;
-    } else {
+    } else if (
+      this.props.departureData.trains.trainServices !== undefined &&
+      this.props.departureData.trains.trainServices !== null
+    ) {
       return (
         <SearchResultsContainer>
           <Link to="/">Back</Link>
@@ -48,36 +55,36 @@ class SearchResults extends Component {
             {this.props.departureData.trains.locationName} &rarr;{" "}
             {this.props.departureData.trains.filterLocationName}
           </SearchResultsTitle>
-
-          {this.props.departureData.trains.trainServices !== undefined &&
-          this.props.departureData.trains.trainServices !== null ? (
-            <div>
-              {this.props.departureData.trains.nrccMessages !== null
-                ? this.props.departureData.trains.nrccMessages.map(
-                    (message, index) => (
-                      <p
-                        key={index}
-                        dangerouslySetInnerHTML={{ __html: message.value }}
-                      />
-                    )
+          <div>
+            {this.props.departureData.trains.nrccMessages !== null
+              ? this.props.departureData.trains.nrccMessages.map(
+                  (message, index) => (
+                    <p
+                      key={index}
+                      dangerouslySetInnerHTML={{ __html: message.value }}
+                    />
                   )
-                : null}
-
-              {this.props.departureData.trains.trainServices.map(
-                (service, index) => (
-                  <ResultsCard
-                    key={index}
-                    service={service}
-                    destination={this.stations.destination}
-                  />
                 )
-              )}
-            </div>
-          ) : (
-            <p>
-              No trains found, please <Link to="/">try another search</Link>
-            </p>
-          )}
+              : null}
+
+            {this.props.departureData.trains.trainServices.map(
+              (service, index) => (
+                <ResultsCard
+                  key={index}
+                  service={service}
+                  destination={this.stations.destination}
+                />
+              )
+            )}
+          </div>
+        </SearchResultsContainer>
+      );
+    } else {
+      return (
+        <SearchResultsContainer>
+          <p>
+            No trains found, please <Link to="/">try another search</Link>
+          </p>
         </SearchResultsContainer>
       );
     }
