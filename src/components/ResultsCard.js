@@ -126,11 +126,14 @@ class ResultsCard extends Component {
           <br />
           {this.props.service.destination[0].locationName}
         </ResultCardAdditional>
-        <ResultCardInfoLink>
-          <button type="button" onClick={this.toggleInfo.bind(this)}>
-            more info
-          </button>
-        </ResultCardInfoLink>
+        {this.props.service.cancelReason !== null ||
+        this.props.service.delayReason !== null ? (
+          <ResultCardInfoLink>
+            <button type="button" onClick={this.toggleInfo.bind(this)}>
+              more info
+            </button>
+          </ResultCardInfoLink>
+        ) : null}
         {!this.state.isHidden && (
           <ResultCardInfo>
             {this.props.service.cancelReason !== null ? (
